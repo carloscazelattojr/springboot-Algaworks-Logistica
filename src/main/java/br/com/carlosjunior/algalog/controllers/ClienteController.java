@@ -2,6 +2,8 @@ package br.com.carlosjunior.algalog.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,22 +38,16 @@ public class ClienteController {
 	public ResponseEntity<Cliente> buscar(@PathVariable Long id) {
 		return clienteRepository.findById(id).map(cliente -> ResponseEntity.ok(cliente))
 				.orElse(ResponseEntity.notFound().build());
-
-//		Optional<Cliente> cliente = clienteRepository.findById(id);
-//		if (cliente.isPresent()) {
-//			return ResponseEntity.ok(cliente.get());
-//		}
-//		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente adicionar(@RequestBody Cliente cliente) {
+	public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable Long id) {
+	public ResponseEntity<Cliente> atualizar(@Valid @RequestBody Cliente cliente, @PathVariable Long id) {
 		if (!clienteRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
@@ -61,7 +57,7 @@ public class ClienteController {
 		return ResponseEntity.ok(cliente);
 
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Long id) {
 		if (!clienteRepository.existsById(id)) {
@@ -70,6 +66,5 @@ public class ClienteController {
 		clienteRepository.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
 
 }
