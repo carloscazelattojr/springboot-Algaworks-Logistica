@@ -22,7 +22,7 @@ public class ClienteService {
 
 		boolean emailEmUso = repository.findByEmail(cliente.getEmail()).stream()
 				.anyMatch(clienteExistente -> !clienteExistente.equals(cliente));
-		
+
 		if (emailEmUso) {
 			throw new NegocioException("Já existe um cliente cadastrado para este e-mail.");
 		}
@@ -31,6 +31,10 @@ public class ClienteService {
 
 	public void excluir(Long id) {
 		repository.deleteById(id);
+	}
+
+	public Cliente buscar(Long id) {
+		return repository.findById(id).orElseThrow(() -> new NegocioException("Cliente não encontrado"));
 	}
 
 }
