@@ -7,7 +7,7 @@ Projeto: AlgaLog (Logistica)
 
 ## Tecnologias
 
-`Java` `Springboot` `Lombok` `Migration` `MySQL` 
+`Java` `Springboot` `Lombok` `Migration` `ModelMapper` `MySQL` 
 
 
 ## Modelo de Negócio
